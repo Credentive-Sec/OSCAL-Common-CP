@@ -1,14 +1,13 @@
 [tool.poetry]
 name = "oscal-common-cp"
 version = "0.1.0"
-description = "A tool to create an OSCAL representation of Common Policy"
+description = ""
 authors = ["Robert Sherwood <robert.sherwood@credentive.com>"]
-license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-oscal-pydantic-v2 = "^2023.12.19"
+pydantic = "^2.6.0"
 
 
 [build-system]
