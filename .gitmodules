@@ -1,0 +1,3 @@
+[submodule "fpki-policy-tokenizer"]
+	path = fpki-policy-tokenizer
+	url = https://github.com/RS-Credentive/fpki-policy-tokenizer.git
