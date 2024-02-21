@@ -12,6 +12,72 @@ files = [
 ]
 
 [[package]]
+name = "dnspython"
+version = "2.5.0"
+description = "DNS toolkit"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "dnspython-2.5.0-py3-none-any.whl", hash = "sha256:6facdf76b73c742ccf2d07add296f178e629da60be23ce4b0a9c927b1e02c3a6"},
+    {file = "dnspython-2.5.0.tar.gz", hash = "sha256:a0034815a59ba9ae888946be7ccca8f7c157b286f8455b379c692efb51022a15"},
+]
+
+[package.extras]
+dev = ["black (>=23.1.0)", "coverage (>=7.0)", "flake8 (>=5.0.3)", "mypy (>=1.0.1)", "pylint (>=2.7)", "pytest (>=6.2.5)", "pytest-cov (>=3.0.0)", "sphinx (>=7.0.0)", "twine (>=4.0.0)", "wheel (>=0.41.0)"]
+dnssec = ["cryptography (>=41)"]
+doh = ["h2 (>=4.1.0)", "httpcore (>=0.17.3)", "httpx (>=0.25.1)"]
+doq = ["aioquic (>=0.9.20)"]
+idna = ["idna (>=2.1)"]
+trio = ["trio (>=0.14)"]
+wmi = ["wmi (>=1.5.1)"]
+
+[[package]]
+name = "email-validator"
+version = "2.1.0.post1"
+description = "A robust email address syntax and deliverability validation library."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "email_validator-2.1.0.post1-py3-none-any.whl", hash = "sha256:c973053efbeddfef924dc0bd93f6e77a1ea7ee0fce935aea7103c7a3d6d2d637"},
+    {file = "email_validator-2.1.0.post1.tar.gz", hash = "sha256:a4b0bd1cf55f073b924258d19321b1f3aa74b4b5a71a42c305575dba920e1a44"},
+]
+
+[package.dependencies]
+dnspython = ">=2.0.0"
+idna = ">=2.0.0"
+
+[[package]]
+name = "idna"
+version = "3.6"
+description = "Internationalized Domain Names in Applications (IDNA)"
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "idna-3.6-py3-none-any.whl", hash = "sha256:c05567e9c24a6b9faaa835c4821bad0590fbb9d5779e7caa6e1cc4978e7eb24f"},
+    {file = "idna-3.6.tar.gz", hash = "sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"},
+]
+
+[[package]]
+name = "oscal-pydantic-v2"
+version = "2023.12.19"
+description = "A set of Pydantic models generated from the OSCAL specification."
+optional = false
+python-versions = ">=3.10"
+files = [
+    {file = "oscal-pydantic-v2-2023.12.19.tar.gz", hash = "sha256:c3f14b64af9fcc95394a984ea9819246c8c2c015aac343b75e9c2743314c93b0"},
+    {file = "oscal_pydantic_v2-2023.12.19-py3-none-any.whl", hash = "sha256:071c935c18d1b69712d8405884469a859a531bff3607e93ee99c6045977d0d47"},
+]
+
+[package.dependencies]
+annotated-types = "*"
+dnspython = ">=2.3"
+email-validator = ">=2"
+idna = ">=3.4"
+pydantic = ">=2"
+pydantic-core = ">=2"
+typing-extensions = "*"
+
+[[package]]
 name = "pydantic"
 version = "2.6.0"
 description = "Data validation using Python type hints"
@@ -135,4 +201,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "a37e7682aa01f61b13ce3008600d91902fa51c7437250bb724b29d5f7a4055d2"
+content-hash = "8d18c9336de91c32362dff72520a7c933c54a602cdd31037cf7e3e7a8e50b391"
