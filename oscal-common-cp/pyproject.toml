@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-oscal-pydantic-v2 = "^2023.12.19"
+oscal-pydantic-v2 = "*"
 
 
 [build-system]
