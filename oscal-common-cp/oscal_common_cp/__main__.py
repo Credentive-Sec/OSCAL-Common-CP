@@ -7,9 +7,8 @@ from pathlib import Path
 import argparse
 from html.parser import HTMLParser
 
+
 # This program relies heavily on the specific format of the tokenized CP documents.
-
-
 def common_policy_to_catalog(common_policy: list[str]) -> document.Document:
     # We will parse the document and store all of the sections as their own list in a nested list
     sections: list[list[str]] = []
@@ -33,7 +32,7 @@ def common_policy_to_catalog(common_policy: list[str]) -> document.Document:
             section.append(line)
 
     # We have now parsed the policy into a list of lists, where each
-    # list represents a section of the document.
+    # outer list represents a section of the document.
 
     # The first list is always the introduction/metadata
     metadata = parse_metadata(sections[0])
@@ -160,6 +159,7 @@ def section_to_control(title: str, section_contents: list[str]) -> catalog.Contr
 def parse_metadata(introduction: list[str]) -> common.Metadata:
     version = ""
     published = None
+    revisions = None
     for line_number, line in enumerate(introduction):
         if line == "":
             # Blank line, ignore and move on
@@ -168,7 +168,7 @@ def parse_metadata(introduction: list[str]) -> common.Metadata:
             # Revision history is maintained in a table - parse it
             # Function works backwards from the END of a table, hence </table>
             revision_table = parse_html_table(introduction, line_number)
-            # TODO: Create Revision table
+            revisions = revision_history_to_revisions(revision_table)
             continue
         elif re.match(r"\[\d.*", line) is not None:
             # This could be a TOC entry - we can derive the section number from this.
@@ -198,11 +198,28 @@ def parse_metadata(introduction: list[str]) -> common.Metadata:
             published=published.isoformat(),
             version=version,
             oscal_version="1.1.2",  # TODO
+            revisions=revisions,
         )
 
 
 def parse_backmatter(contents: list[str]) -> common.BackMatter:
     return common.BackMatter(resources=None)
+
+
+def revision_history_to_revisions(revisions: list[list[str]]) -> list[common.Revision]:
+    revision_list: list[common.Revision] = []
+    for row in revisions:
+        version_id = row[0]
+        published_date = row[1]
+        revision_details = row[2]
+        revision_record = common.Revision(
+            version=version_id,
+            published=published_date,
+            remarks=revision_details,
+        )
+        revision_list.append(revision_record)
+
+    return revision_list
 
 
 def parse_html_table(contents: list[str], table_end_line: int) -> list[list[str]]:
