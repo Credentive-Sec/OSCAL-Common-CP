@@ -15,6 +15,7 @@ if __name__ == "__main__":
         "-t",
         "--type",
         dest="parser_type",
+        type=str,
         help="Type of parser to use (default: simple)",
         default="simple",
     )
@@ -26,7 +27,8 @@ if __name__ == "__main__":
 
     parser_dict["simple"] = SimpleOscalParser()
 
-    oscal_parser = parser_dict[args.parser_type]
+    # oscal_parser = parser_dict[args.parser_type]
+    oscal_parser = SimpleOscalParser()
 
     common_file_path = Path(args.filename)
 
@@ -40,5 +42,18 @@ if __name__ == "__main__":
         arg_parser.print_help
         exit(1)
 
-    # Write the catalog to stdout
-    print(common_catalog.model_dump_json())
+    if common_catalog.catalog is not None:
+        # Write the catalog to stdout
+        title = common_catalog.catalog.metadata.title
+        version = common_catalog.catalog.metadata.version
+        oscal_version = common_catalog.catalog.metadata.oscal_version
+        output_filename = (
+            f"{title}-{version}-oscal-{oscal_version}-{args.parser_type}.json"
+        )
+        with open(
+            file=Path.joinpath(Path.cwd(), "oscal-json", output_filename), mode="w"
+        ) as catalog_file:
+            catalog_file.write(common_catalog.model_dump_json())
+    else:
+        print("Could not parse catalog")
+        exit(1)

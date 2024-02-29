@@ -5,6 +5,9 @@ import re
 import uuid
 from html.parser import HTMLParser
 
+
+
+
 class SimpleOscalParser:
     # We rely on the TOC in several places, so we define it first
     # Turns out this doesn't solve the problem of multiple sections with the same name, so I am abandoning it.
@@ -294,11 +297,11 @@ class SimpleOscalParser:
                 in_toc = True
             elif line[0] == "[" and in_toc:
                 toc_lines.append(line)
-            elif "Version " in line:
+            elif "Version " in line and not in_toc:
                 # Parse out the version number then move on
                 version = re.sub(r"Version ", "", line)
                 continue
-            elif line[0] in "*<[(" and not in_toc:
+            elif line[0] in "*<>[(" and not in_toc:
                 # First character of the line indicates it's a structural or other
                 # metadata line, ignore since we've already parsed the ones we're
                 # interested in
