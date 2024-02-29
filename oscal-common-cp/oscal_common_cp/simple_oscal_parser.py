@@ -299,7 +299,8 @@ class SimpleOscalParser:
                 toc_lines.append(line)
             elif "Version " in line and not in_toc:
                 # Parse out the version number then move on
-                version = re.sub(r"Version ", "", line)
+                # complicated pattern because of some strange inputs
+                version = re.sub(r"^Version[\s\-\d]*\s", "", line)
                 continue
             elif line[0] in "*<>[(" and not in_toc:
                 # First character of the line indicates it's a structural or other
